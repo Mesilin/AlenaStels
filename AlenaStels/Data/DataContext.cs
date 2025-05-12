@@ -16,9 +16,10 @@ namespace AlenaStels.Data
 
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Device> Devices { get; set; }
+        public DbSet<WorkLog> WorkLogs { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-            => optionsBuilder.UseSqlite("Data Source=D:\\AlenaStels.sqlite");
+            => optionsBuilder.UseSqlite("Data Source=C:\\AlenaStelsData\\AlenaStels.sqlite");
 
         //protected override void OnModelCreating(ModelBuilder modelBuilder)
         //{

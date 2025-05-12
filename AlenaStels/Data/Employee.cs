@@ -10,7 +10,7 @@ namespace AlenaStels.Data
     {
         public int EmployeeId { get; set; }
 
-        public int SortIndex { get; set; } = 9999;
+        public int SortIndex { get; set; } = 0;
 
         public required string FIO { get; set; }
 
