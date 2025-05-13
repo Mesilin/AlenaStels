@@ -15,6 +15,9 @@ namespace AlenaStels
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
 
+            if (!Directory.Exists("C:\\AlenaStelsData"))
+                Directory.CreateDirectory("C:\\AlenaStelsData");
+
             using (var ctx = new DataContext())
             {
                 ctx.Database.MigrateAsync().Wait();

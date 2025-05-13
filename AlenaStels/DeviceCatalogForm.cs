@@ -6,11 +6,11 @@ namespace AlenaStels
 {
     public partial class DeviceCatalogForm : Form
     {
-        //public event Action DataUpdated;
         private void buttonSaveDevice_Click(object sender, EventArgs e)
         {
             this.dataContext!.SaveChanges();
             this.dataGridView1.Refresh();
+            DataUpdated?.Invoke();
         }
 
         public DeviceCatalogForm()
@@ -33,5 +33,7 @@ namespace AlenaStels
         }
 
         private DataContext? dataContext;
+
+        public event Action? DataUpdated;
     }
 }

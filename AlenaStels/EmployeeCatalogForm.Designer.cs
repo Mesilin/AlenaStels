@@ -30,7 +30,7 @@ namespace AlenaStels
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            dataGridView1 = new DataGridView();
+            employeeGridView = new DataGridView();
             sortIndexDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             Column1 = new DataGridViewTextBoxColumn();
             FIO = new DataGridViewTextBoxColumn();
@@ -39,25 +39,24 @@ namespace AlenaStels
             panel1 = new Panel();
             buttonSaveEmployees = new Button();
             panel2 = new Panel();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)employeeGridView).BeginInit();
             ((System.ComponentModel.ISupportInitialize)employeeBindingSource).BeginInit();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             SuspendLayout();
             // 
-            // dataGridView1
+            // employeeGridView
             // 
-            dataGridView1.AllowUserToOrderColumns = true;
-            dataGridView1.AutoGenerateColumns = false;
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { sortIndexDataGridViewTextBoxColumn, Column1, FIO, isActiveDataGridViewCheckBoxColumn });
-            dataGridView1.DataSource = employeeBindingSource;
-            dataGridView1.Dock = DockStyle.Fill;
-            dataGridView1.Location = new Point(0, 0);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.Size = new Size(800, 411);
-            dataGridView1.TabIndex = 0;
-            dataGridView1.CellContentClick += dataGridView1_CellContentClick;
+            employeeGridView.AllowUserToOrderColumns = true;
+            employeeGridView.AutoGenerateColumns = false;
+            employeeGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            employeeGridView.Columns.AddRange(new DataGridViewColumn[] { sortIndexDataGridViewTextBoxColumn, Column1, FIO, isActiveDataGridViewCheckBoxColumn });
+            employeeGridView.DataSource = employeeBindingSource;
+            employeeGridView.Dock = DockStyle.Fill;
+            employeeGridView.Location = new Point(0, 0);
+            employeeGridView.Name = "employeeGridView";
+            employeeGridView.Size = new Size(800, 411);
+            employeeGridView.TabIndex = 0;
             // 
             // sortIndexDataGridViewTextBoxColumn
             // 
@@ -110,7 +109,7 @@ namespace AlenaStels
             // 
             // panel2
             // 
-            panel2.Controls.Add(dataGridView1);
+            panel2.Controls.Add(employeeGridView);
             panel2.Dock = DockStyle.Fill;
             panel2.Location = new Point(0, 39);
             panel2.Name = "panel2";
@@ -126,7 +125,7 @@ namespace AlenaStels
             Controls.Add(panel1);
             Name = "EmployeeCatalogForm";
             Text = "Сотрудники";
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)employeeGridView).EndInit();
             ((System.ComponentModel.ISupportInitialize)employeeBindingSource).EndInit();
             panel1.ResumeLayout(false);
             panel2.ResumeLayout(false);
@@ -135,7 +134,7 @@ namespace AlenaStels
 
         #endregion
 
-        private DataGridView dataGridView1;
+        private DataGridView employeeGridView;
         private Panel panel1;
         private Button buttonSaveEmployees;
         private Panel panel2;

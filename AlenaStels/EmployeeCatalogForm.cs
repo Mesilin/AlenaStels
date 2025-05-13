@@ -6,13 +6,12 @@ namespace AlenaStels
 {
     public partial class EmployeeCatalogForm : Form
     {
-        public event Action DataUpdated;
 
         private void buttonSaveEmployees_Click(object sender, EventArgs e)
         {
             this.dataContext!.SaveChanges();
-            this.dataGridView1.Refresh();
-            DataUpdated?.Invoke();
+            this.employeeGridView.Refresh();
+            DataUpdated.Invoke();
         }
 
         public EmployeeCatalogForm()
@@ -36,9 +35,6 @@ namespace AlenaStels
 
         private DataContext? dataContext;
 
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
+        public event Action DataUpdated;
     }
 }

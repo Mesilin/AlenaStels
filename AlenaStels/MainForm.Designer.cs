@@ -33,18 +33,17 @@
             справочникиToolStripMenuItem = new ToolStripMenuItem();
             сотрудникиToolStripMenuItem = new ToolStripMenuItem();
             приборыToolStripMenuItem = new ToolStripMenuItem();
-            comboBox1 = new ComboBox();
+            peopleFilterComboBox = new ComboBox();
             employeeBindingSource = new BindingSource(components);
             dateTimePicker1 = new DateTimePicker();
             panel1 = new Panel();
-            button1 = new Button();
             panel2 = new Panel();
-            dataGridView1 = new DataGridView();
+            workLogGridView = new DataGridView();
             menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)employeeBindingSource).BeginInit();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)workLogGridView).BeginInit();
             SuspendLayout();
             // 
             // menuStrip1
@@ -52,7 +51,7 @@
             menuStrip1.Items.AddRange(new ToolStripItem[] { справочникиToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
-            menuStrip1.Size = new Size(1077, 24);
+            menuStrip1.Size = new Size(1471, 24);
             menuStrip1.TabIndex = 0;
             menuStrip1.Text = "menuStrip1";
             // 
@@ -77,18 +76,18 @@
             приборыToolStripMenuItem.Text = "Приборы";
             приборыToolStripMenuItem.Click += приборыToolStripMenuItem_Click;
             // 
-            // comboBox1
+            // peopleFilterComboBox
             // 
-            comboBox1.DataSource = employeeBindingSource;
-            comboBox1.DisplayMember = "FIO";
-            comboBox1.DropDownStyle = ComboBoxStyle.DropDownList;
-            comboBox1.Font = new Font("Segoe UI", 9F);
-            comboBox1.FormattingEnabled = true;
-            comboBox1.Location = new Point(3, 3);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(202, 23);
-            comboBox1.TabIndex = 1;
-            comboBox1.ValueMember = "EmployeeId";
+            peopleFilterComboBox.DataSource = employeeBindingSource;
+            peopleFilterComboBox.DisplayMember = "FIO";
+            peopleFilterComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
+            peopleFilterComboBox.Font = new Font("Segoe UI", 9F);
+            peopleFilterComboBox.FormattingEnabled = true;
+            peopleFilterComboBox.Location = new Point(3, 3);
+            peopleFilterComboBox.Name = "peopleFilterComboBox";
+            peopleFilterComboBox.Size = new Size(202, 23);
+            peopleFilterComboBox.TabIndex = 1;
+            peopleFilterComboBox.ValueMember = "EmployeeId";
             // 
             // employeeBindingSource
             // 
@@ -108,49 +107,39 @@
             // 
             // panel1
             // 
-            panel1.Controls.Add(button1);
             panel1.Controls.Add(dateTimePicker1);
-            panel1.Controls.Add(comboBox1);
+            panel1.Controls.Add(peopleFilterComboBox);
             panel1.Dock = DockStyle.Top;
             panel1.Location = new Point(0, 24);
             panel1.Name = "panel1";
-            panel1.Size = new Size(1077, 38);
+            panel1.Size = new Size(1471, 38);
             panel1.TabIndex = 2;
-            // 
-            // button1
-            // 
-            button1.Location = new Point(347, 3);
-            button1.Name = "button1";
-            button1.Size = new Size(75, 23);
-            button1.TabIndex = 2;
-            button1.Text = "Сохранить";
-            button1.UseVisualStyleBackColor = true;
             // 
             // panel2
             // 
-            panel2.Controls.Add(dataGridView1);
+            panel2.Controls.Add(workLogGridView);
             panel2.Dock = DockStyle.Fill;
             panel2.Location = new Point(0, 62);
             panel2.Name = "panel2";
-            panel2.Size = new Size(1077, 555);
+            panel2.Size = new Size(1471, 655);
             panel2.TabIndex = 3;
             // 
-            // dataGridView1
+            // workLogGridView
             // 
-            dataGridView1.AllowUserToAddRows = false;
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Dock = DockStyle.Fill;
-            dataGridView1.Location = new Point(0, 0);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.RowHeadersVisible = false;
-            dataGridView1.Size = new Size(1077, 555);
-            dataGridView1.TabIndex = 0;
+            workLogGridView.AllowUserToAddRows = false;
+            workLogGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            workLogGridView.Dock = DockStyle.Fill;
+            workLogGridView.Location = new Point(0, 0);
+            workLogGridView.Name = "workLogGridView";
+            workLogGridView.RowHeadersVisible = false;
+            workLogGridView.Size = new Size(1471, 655);
+            workLogGridView.TabIndex = 0;
             // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1077, 617);
+            ClientSize = new Size(1471, 717);
             Controls.Add(panel2);
             Controls.Add(panel1);
             Controls.Add(menuStrip1);
@@ -162,7 +151,7 @@
             ((System.ComponentModel.ISupportInitialize)employeeBindingSource).EndInit();
             panel1.ResumeLayout(false);
             panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)workLogGridView).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -174,11 +163,10 @@
         private ToolStripMenuItem сотрудникиToolStripMenuItem;
         private ToolStripMenuItem приборыToolStripMenuItem;
         private DateTimePicker dateTimePicker1;
-        private ComboBox comboBox1;
+        private ComboBox peopleFilterComboBox;
         private BindingSource employeeBindingSource;
         private Panel panel1;
         private Panel panel2;
-        private DataGridView dataGridView1;
-        private Button button1;
+        private DataGridView workLogGridView;
     }
 }
