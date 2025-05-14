@@ -31,9 +31,8 @@ namespace AlenaStels
         {
             components = new System.ComponentModel.Container();
             employeeGridView = new DataGridView();
-            sortIndexDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            Column1 = new DataGridViewTextBoxColumn();
             FIO = new DataGridViewTextBoxColumn();
+            EmployeeId = new DataGridViewTextBoxColumn();
             isActiveDataGridViewCheckBoxColumn = new DataGridViewCheckBoxColumn();
             employeeBindingSource = new BindingSource(components);
             panel1 = new Panel();
@@ -50,32 +49,29 @@ namespace AlenaStels
             employeeGridView.AllowUserToOrderColumns = true;
             employeeGridView.AutoGenerateColumns = false;
             employeeGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            employeeGridView.Columns.AddRange(new DataGridViewColumn[] { sortIndexDataGridViewTextBoxColumn, Column1, FIO, isActiveDataGridViewCheckBoxColumn });
+            employeeGridView.Columns.AddRange(new DataGridViewColumn[] { FIO, EmployeeId, isActiveDataGridViewCheckBoxColumn });
             employeeGridView.DataSource = employeeBindingSource;
             employeeGridView.Dock = DockStyle.Fill;
             employeeGridView.Location = new Point(0, 0);
             employeeGridView.Name = "employeeGridView";
+            employeeGridView.RowHeadersVisible = false;
             employeeGridView.Size = new Size(800, 411);
             employeeGridView.TabIndex = 0;
-            // 
-            // sortIndexDataGridViewTextBoxColumn
-            // 
-            sortIndexDataGridViewTextBoxColumn.DataPropertyName = "SortIndex";
-            sortIndexDataGridViewTextBoxColumn.HeaderText = "SortIndex";
-            sortIndexDataGridViewTextBoxColumn.Name = "sortIndexDataGridViewTextBoxColumn";
-            // 
-            // Column1
-            // 
-            Column1.DataPropertyName = "EmployeeId";
-            Column1.HeaderText = "Column1";
-            Column1.Name = "Column1";
-            Column1.Visible = false;
+            employeeGridView.CellContentClick += employeeGridView_CellContentClick;
             // 
             // FIO
             // 
             FIO.DataPropertyName = "FIO";
             FIO.HeaderText = "ФИО";
             FIO.Name = "FIO";
+            // 
+            // EmployeeId
+            // 
+            EmployeeId.DataPropertyName = "EmployeeId";
+            EmployeeId.HeaderText = "EmployeeId";
+            EmployeeId.Name = "EmployeeId";
+            EmployeeId.ReadOnly = true;
+            EmployeeId.Visible = false;
             // 
             // isActiveDataGridViewCheckBoxColumn
             // 
@@ -139,9 +135,9 @@ namespace AlenaStels
         private Button buttonSaveEmployees;
         private Panel panel2;
         private DataGridViewTextBoxColumn sortIndexDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn FIO;
-        private DataGridViewCheckBoxColumn isActiveDataGridViewCheckBoxColumn;
         private BindingSource employeeBindingSource;
-        private DataGridViewTextBoxColumn Column1;
+        private DataGridViewTextBoxColumn FIO;
+        private DataGridViewTextBoxColumn EmployeeId;
+        private DataGridViewCheckBoxColumn isActiveDataGridViewCheckBoxColumn;
     }
 }

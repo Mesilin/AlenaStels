@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Windows.Forms;
 using AlenaStels.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -5,8 +7,8 @@ namespace AlenaStels
 {
     public partial class MainForm : Form
     {
-        private EmployeeCatalogForm EmplForm = new();
-        private DeviceCatalogForm DeviceForm = new();
+        private EmployeeCatalogForm _emplForm = new();
+        private DeviceCatalogForm _deviceForm = new();
 
         public MainForm()
         {
@@ -38,23 +40,19 @@ namespace AlenaStels
         private void SaveItem(DataGridViewCellEventArgs e)
         {
             if (!int.TryParse(workLogGridView.Rows[e.RowIndex].Cells[e.ColumnIndex].Value?.ToString(), out int value))
-            {
                 return;
-            }
 
             int day = e.ColumnIndex;
             int month = dateTimePicker1.Value.Month;
             int year = dateTimePicker1.Value.Year;
 
-            var peopleId= (int?)(peopleFilterComboBox.SelectedValue) ?? 0;
+            var peopleId = (int?)(peopleFilterComboBox.SelectedValue) ?? 0;
 
-            var device = dataContext.Devices.First(w => w.Name == (string)workLogGridView.Rows[e.RowIndex].Cells[0].Value);
-            var devId = device.DeviceId;
-
+            var devId = (int)workLogGridView.Rows[e.RowIndex].Cells[0].Tag;
             var existing = dataContext.WorkLogs
                 .SingleOrDefault(w => w.EmployeeId == peopleId && w.DeviceId == devId && w.Year == year && w.Month == month && w.Day == day);
 
-            if (existing != null )
+            if (existing != null)
             {
                 existing.Value = value;
                 dataContext.SaveChanges();
@@ -90,7 +88,7 @@ namespace AlenaStels
             // Записываем сумму в последнюю ячейку
             workLogGridView.Rows[rowIndex].Cells["Total"].Value = sum;
         }
-        
+
         private void WorkLogGridViewEditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
         {
             if (e.Control is TextBox textBox)
@@ -119,6 +117,15 @@ namespace AlenaStels
 
         private void UpdateDataGridViewColumns()
         {
+            dataContext.Devices.Load();
+            dataContext.Employees.Where(w=>w.IsActive).OrderBy(o => o.FIO).Load();
+            dataContext.WorkLogs.Load();
+            foreach (var entry in dataContext.ChangeTracker.Entries().ToList())
+            {
+                entry.Reload();
+            }
+            employeeBindingSource.DataSource = dataContext.Employees.Local.ToBindingList();
+
             DateTime selectedDate = dateTimePicker1.Value;
             int year = selectedDate.Year;
             int month = selectedDate.Month;
@@ -127,9 +134,10 @@ namespace AlenaStels
 
             int daysInMonth = DateTime.DaysInMonth(year, month);
             workLogGridView.Columns.Clear();
+            workLogGridView.Rows.Clear();
 
-            workLogGridView.Columns.Add("Device", $"Прибор");
-
+            workLogGridView.Columns.Add("Device", "Прибор");
+            workLogGridView.Columns["Device"]!.Frozen = true;
             workLogGridView.Columns["Device"]!.Width = 120;
             workLogGridView.Columns["Device"]!.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
             workLogGridView.Columns["Device"]!.ReadOnly = true;
@@ -145,9 +153,12 @@ namespace AlenaStels
             workLogGridView.Columns["Total"]!.Width = 45;
             workLogGridView.Columns["Total"]!.ReadOnly = true;
 
-            var devices = dataContext.Devices.Where(w => w.IsActive).OrderBy(o => o.SortIndex).ToList();
-            var works = dataContext.WorkLogs
-                .Where(w => w.EmployeeId == selectedPeopleId && w.Year == year && w.Month == month).ToList();
+            var devices = dataContext.Devices
+                .AsNoTracking()
+                .Where(w => w.IsActive)
+                .OrderBy(o => o.SortIndex)
+                .ToList();
+            var works = dataContext.WorkLogs.AsNoTracking().Where(w => w.EmployeeId == selectedPeopleId && w.Year == year && w.Month == month).ToList();
 
             int i = 0;
             foreach (var device in devices)
@@ -155,12 +166,13 @@ namespace AlenaStels
                 var deviceWork = works.Where(w => w.DeviceId == device.DeviceId).ToDictionary(w => w.Day);
 
                 workLogGridView.Rows.Add();
+                workLogGridView.Rows[i].Cells[0].Tag = device.DeviceId;
                 workLogGridView.Rows[i].Cells[0].Value = device.Name;
 
                 int? sum = 0;
                 for (var day = 1; day <= daysInMonth; day++)
                 {
-                    if (!deviceWork.TryGetValue(day, out var val) || !val.Value.HasValue) 
+                    if (!deviceWork.TryGetValue(day, out var val) || !val.Value.HasValue)
                         continue;
                     workLogGridView.Rows[i].Cells[day].Value = val.Value;
                     sum += val.Value;
@@ -169,15 +181,12 @@ namespace AlenaStels
                 workLogGridView.Rows[i].Cells[daysInMonth + 1].Value = sum;
                 i++;
             }
+
             // Настройка первого столбца
             workLogGridView.Columns["Device"]!.DefaultCellStyle.BackColor = Color.LightGray;
             workLogGridView.Columns["Device"]!.DefaultCellStyle.ForeColor = Color.Black;
             workLogGridView.Columns["Total"]!.DefaultCellStyle.BackColor = Color.LightGray;
             workLogGridView.Columns["Total"]!.DefaultCellStyle.ForeColor = Color.Black;
-
-            // Настройка заголовков строк
-            workLogGridView.RowHeadersDefaultCellStyle.BackColor = Color.LightGray;
-            workLogGridView.RowHeadersDefaultCellStyle.SelectionBackColor = Color.Gray; // Цвет при выделении
 
             // Настройка заголовков столбцов
             workLogGridView.ColumnHeadersDefaultCellStyle.BackColor = Color.LightBlue;
@@ -186,36 +195,35 @@ namespace AlenaStels
 
         private void сотрудникиToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            EmplForm.DataUpdated += RefreshEmployeeFilter;
-            EmplForm.ShowDialog();
+            _emplForm.DataUpdated += RefreshEmployeeFilter;
+            _emplForm.ShowDialog();
         }
 
         private void RefreshEmployeeFilter()
         {
-            this.dataContext.Employees.OrderBy(o => o.SortIndex).Load();
-            this.employeeBindingSource.DataSource = dataContext.Employees.Local.ToBindingList();
+            UpdateDataGridViewColumns();
         }
 
         private void приборыToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            //DeviceForm.DataUpdated += RefreshEmployeeFilter;
-            DeviceForm.ShowDialog();
+        { 
+            _deviceForm.DataUpdated += UpdateDataGridViewColumns;
+            _deviceForm.ShowDialog();
         }
 
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
             this.dataContext = new DataContext();
-            this.dataContext.Employees.OrderBy(o => o.SortIndex).Load();
-            this.employeeBindingSource.DataSource = dataContext.Employees.Local.ToBindingList();
             UpdateDataGridViewColumns();
         }
         private DataContext dataContext;
 
-        private void button1_Click(object sender, EventArgs e)
+        private void openSummaryButton_Click(object sender, EventArgs e)
         {
+            int month = dateTimePicker1.Value.Month;
+            int year = dateTimePicker1.Value.Year;
+            SummaryForm summaryForm = new(year, month);
+            summaryForm.ShowDialog();
         }
-
     }
-
 }

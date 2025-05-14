@@ -32,13 +32,13 @@ namespace AlenaStels
             components = new System.ComponentModel.Container();
             dataGridView1 = new DataGridView();
             deviceIdDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            sortIndexDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             nameDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             isActiveDataGridViewCheckBoxColumn = new DataGridViewCheckBoxColumn();
+            sortIndexDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             deviceBindingSource = new BindingSource(components);
             panel1 = new Panel();
-            panel2 = new Panel();
             buttonSaveDevice = new Button();
+            panel2 = new Panel();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)deviceBindingSource).BeginInit();
             panel1.SuspendLayout();
@@ -50,11 +50,12 @@ namespace AlenaStels
             dataGridView1.AllowUserToOrderColumns = true;
             dataGridView1.AutoGenerateColumns = false;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { deviceIdDataGridViewTextBoxColumn, sortIndexDataGridViewTextBoxColumn, nameDataGridViewTextBoxColumn, isActiveDataGridViewCheckBoxColumn });
+            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { deviceIdDataGridViewTextBoxColumn, nameDataGridViewTextBoxColumn, isActiveDataGridViewCheckBoxColumn, sortIndexDataGridViewTextBoxColumn });
             dataGridView1.DataSource = deviceBindingSource;
             dataGridView1.Dock = DockStyle.Fill;
             dataGridView1.Location = new Point(0, 0);
             dataGridView1.Name = "dataGridView1";
+            dataGridView1.RowHeadersVisible = false;
             dataGridView1.Size = new Size(800, 411);
             dataGridView1.TabIndex = 0;
             // 
@@ -64,12 +65,6 @@ namespace AlenaStels
             deviceIdDataGridViewTextBoxColumn.HeaderText = "DeviceId";
             deviceIdDataGridViewTextBoxColumn.Name = "deviceIdDataGridViewTextBoxColumn";
             deviceIdDataGridViewTextBoxColumn.Visible = false;
-            // 
-            // sortIndexDataGridViewTextBoxColumn
-            // 
-            sortIndexDataGridViewTextBoxColumn.DataPropertyName = "SortIndex";
-            sortIndexDataGridViewTextBoxColumn.HeaderText = "SortIndex";
-            sortIndexDataGridViewTextBoxColumn.Name = "sortIndexDataGridViewTextBoxColumn";
             // 
             // nameDataGridViewTextBoxColumn
             // 
@@ -84,6 +79,13 @@ namespace AlenaStels
             isActiveDataGridViewCheckBoxColumn.Name = "isActiveDataGridViewCheckBoxColumn";
             isActiveDataGridViewCheckBoxColumn.ToolTipText = "Если активно - будет доступно для выбора";
             // 
+            // sortIndexDataGridViewTextBoxColumn
+            // 
+            sortIndexDataGridViewTextBoxColumn.DataPropertyName = "SortIndex";
+            sortIndexDataGridViewTextBoxColumn.HeaderText = "SortIndex";
+            sortIndexDataGridViewTextBoxColumn.Name = "sortIndexDataGridViewTextBoxColumn";
+            sortIndexDataGridViewTextBoxColumn.ToolTipText = "Чем меньше индекс сортировки - тем выше в таблице будет этот прибор";
+            // 
             // deviceBindingSource
             // 
             deviceBindingSource.DataSource = typeof(Data.Device);
@@ -97,15 +99,6 @@ namespace AlenaStels
             panel1.Size = new Size(800, 39);
             panel1.TabIndex = 1;
             // 
-            // panel2
-            // 
-            panel2.Controls.Add(dataGridView1);
-            panel2.Dock = DockStyle.Fill;
-            panel2.Location = new Point(0, 39);
-            panel2.Name = "panel2";
-            panel2.Size = new Size(800, 411);
-            panel2.TabIndex = 2;
-            // 
             // buttonSaveDevice
             // 
             buttonSaveDevice.Location = new Point(704, 10);
@@ -114,7 +107,16 @@ namespace AlenaStels
             buttonSaveDevice.TabIndex = 0;
             buttonSaveDevice.Text = "Сохранить";
             buttonSaveDevice.UseVisualStyleBackColor = true;
-            buttonSaveDevice.Click += this.buttonSaveDevice_Click;
+            buttonSaveDevice.Click += buttonSaveDevice_Click;
+            // 
+            // panel2
+            // 
+            panel2.Controls.Add(dataGridView1);
+            panel2.Dock = DockStyle.Fill;
+            panel2.Location = new Point(0, 39);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(800, 411);
+            panel2.TabIndex = 2;
             // 
             // DeviceCatalogForm
             // 
@@ -135,13 +137,13 @@ namespace AlenaStels
         #endregion
 
         private DataGridView dataGridView1;
-        private DataGridViewTextBoxColumn deviceIdDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn sortIndexDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn nameDataGridViewTextBoxColumn;
-        private DataGridViewCheckBoxColumn isActiveDataGridViewCheckBoxColumn;
         private BindingSource deviceBindingSource;
         private Panel panel1;
         private Button buttonSaveDevice;
         private Panel panel2;
+        private DataGridViewTextBoxColumn deviceIdDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn nameDataGridViewTextBoxColumn;
+        private DataGridViewCheckBoxColumn isActiveDataGridViewCheckBoxColumn;
+        private DataGridViewTextBoxColumn sortIndexDataGridViewTextBoxColumn;
     }
 }
