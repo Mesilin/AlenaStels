@@ -126,7 +126,10 @@ namespace AlenaStels
             Controls.Add(panel2);
             Controls.Add(panel1);
             Name = "DeviceCatalogForm";
-            Text = "CatalogForm";
+            ShowIcon = false;
+            ShowInTaskbar = false;
+            StartPosition = FormStartPosition.CenterParent;
+            Text = "Приборы";
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ((System.ComponentModel.ISupportInitialize)deviceBindingSource).EndInit();
             panel1.ResumeLayout(false);

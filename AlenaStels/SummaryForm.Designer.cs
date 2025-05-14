@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             panel1 = new Panel();
+            dateTimePicker1 = new DateTimePicker();
             label1 = new Label();
             summaryGridView = new DataGridView();
-            dateTimePicker1 = new DateTimePicker();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)summaryGridView).BeginInit();
             SuspendLayout();
@@ -45,6 +45,19 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(887, 34);
             panel1.TabIndex = 0;
+            // 
+            // dateTimePicker1
+            // 
+            dateTimePicker1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            dateTimePicker1.CustomFormat = "MMMM yyyy";
+            dateTimePicker1.Format = DateTimePickerFormat.Custom;
+            dateTimePicker1.Location = new Point(12, 5);
+            dateTimePicker1.MaxDate = new DateTime(2120, 12, 31, 0, 0, 0, 0);
+            dateTimePicker1.MinDate = new DateTime(2020, 1, 1, 0, 0, 0, 0);
+            dateTimePicker1.Name = "dateTimePicker1";
+            dateTimePicker1.ShowUpDown = true;
+            dateTimePicker1.Size = new Size(125, 23);
+            dateTimePicker1.TabIndex = 1;
             // 
             // label1
             // 
@@ -70,18 +83,6 @@
             summaryGridView.Size = new Size(887, 636);
             summaryGridView.TabIndex = 1;
             // 
-            // dateTimePicker1
-            // 
-            dateTimePicker1.CustomFormat = "MMMM yyyy";
-            dateTimePicker1.Format = DateTimePickerFormat.Custom;
-            dateTimePicker1.MaxDate = new DateTime(2120, 12, 31, 0, 0, 0, 0);
-            dateTimePicker1.MinDate = new DateTime(2020, 1, 1, 0, 0, 0, 0);
-            dateTimePicker1.ShowUpDown = true;
-            dateTimePicker1.Location = new Point(660, 5);
-            dateTimePicker1.Name = "dateTimePicker1";
-            dateTimePicker1.Size = new Size(200, 23);
-            dateTimePicker1.TabIndex = 1;
-            // 
             // SummaryForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -90,6 +91,8 @@
             Controls.Add(summaryGridView);
             Controls.Add(panel1);
             Name = "SummaryForm";
+            ShowIcon = false;
+            StartPosition = FormStartPosition.CenterParent;
             Text = "Сводка";
             panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)summaryGridView).EndInit();

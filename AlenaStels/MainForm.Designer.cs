@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             menuStrip1 = new MenuStrip();
             справочникиToolStripMenuItem = new ToolStripMenuItem();
             сотрудникиToolStripMenuItem = new ToolStripMenuItem();
@@ -145,8 +146,10 @@
             Controls.Add(workLogGridView);
             Controls.Add(panel1);
             Controls.Add(menuStrip1);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             MainMenuStrip = menuStrip1;
             Name = "MainForm";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Stels";
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();

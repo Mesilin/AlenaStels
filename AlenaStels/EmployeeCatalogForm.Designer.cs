@@ -120,6 +120,8 @@ namespace AlenaStels
             Controls.Add(panel2);
             Controls.Add(panel1);
             Name = "EmployeeCatalogForm";
+            ShowIcon = false;
+            StartPosition = FormStartPosition.CenterParent;
             Text = "Сотрудники";
             ((System.ComponentModel.ISupportInitialize)employeeGridView).EndInit();
             ((System.ComponentModel.ISupportInitialize)employeeBindingSource).EndInit();
